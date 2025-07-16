@@ -1,0 +1,89 @@
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librería de Juegos</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+  <div class="user-form">
+    <input type="text" id="steamid-input" placeholder="Ingresa tu SteamID64">
+    <button onclick="cargarJuegos()">Ver mis juegos</button>
+  </div>
+
+  <div class="container">
+    <h1>Mi Librería de Juegos</h1>
+
+    <section class="collapsible">
+      <button class="toggle-button" onclick="toggleSection('completed')">Juegos Completados</button>
+      <div class="collapsible-content" id="completed">
+        <div class="games-list" id="completed-list"></div>
+      </div>
+    </section>
+
+    <section class="collapsible">
+      <button class="toggle-button" onclick="toggleSection('incomplete')">Juegos por Completar</button>
+      <div class="collapsible-content" id="incomplete">
+        <div class="games-list" id="incomplete-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function toggleSection(id) {
+      document.getElementById(id).classList.toggle('hidden');
+    }
+
+    function cargarJuegos() {
+      const steamid = document.getElementById('steamid-input').value.trim();
+      if (!steamid) return alert("Ingresa un SteamID64 válido");
+
+      fetch(`/api/games/${steamid}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('completed-list').innerHTML = '';
+          document.getElementById('incomplete-list').innerHTML = '';
+
+          data.forEach(game => {
+            if (game.achievement_percent === 0) return;
+
+            const card = document.createElement('div');
+            card.className = 'game-card';
+
+            const img = document.createElement('img');
+            img.src = game.image_url;
+            img.alt = game.name;
+
+            const title = document.createElement('h3');
+            title.textContent = game.name;
+
+            const progressBarContainer = document.createElement('div');
+            progressBarContainer.className = 'progress-bar-container';
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            progressBar.style.width = game.achievement_percent + '%';
+
+            const percentText = document.createElement('span');
+            percentText.textContent = game.achievement_percent + '%';
+
+            progressBarContainer.appendChild(progressBar);
+            progressBarContainer.appendChild(percentText);
+            card.appendChild(img);
+            card.appendChild(title);
+            card.appendChild(progressBarContainer);
+
+            if (game.achievement_percent === 100) {
+              document.getElementById('completed-list').appendChild(card);
+            } else {
+              document.getElementById('incomplete-list').appendChild(card);
+            }
+          });
+        });
+    }
+  </script>
+</body>
+
+</html>

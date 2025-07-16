@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.game-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.progress-bar-container {
+    position: relative;
+    background: #ddd;
+    border-radius: 20px;
+    margin-top: 10px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 20px 0 0 20px;
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-bar-container span {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.collapsible {
+    margin-bottom: 30px;
+}
+
+.toggle-button {
+    display: block;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-size: 1.2em;
+    text-align: left;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.collapsible-content.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .progress-bar-container span {
+        font-size: 10px;
+    }
+}

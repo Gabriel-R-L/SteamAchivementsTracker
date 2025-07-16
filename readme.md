@@ -1,0 +1,1 @@
+Donde buscar: https://steamid.io/lookup/rakiiturbo11
