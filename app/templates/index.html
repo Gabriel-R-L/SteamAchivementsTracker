@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Librería de Juegos</title>
+  <title>Steam Achivements Tracker</title>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 
 <body>
-  <div class="user-form">
-    <input type="text" id="steamid-input" placeholder="Ingresa tu SteamID64">
-    <button onclick="cargarJuegos()">Ver mis juegos</button>
-  </div>
-
   <div class="container">
-    <h1>Mi Librería de Juegos</h1>
+    <h1>Steam Achivements Tracker</h1>
+
+    <div class="user-form">
+      <input type="text" id="steamid-input" placeholder="Ingresa tu SteamID">
+      <button onclick="cargarJuegos()">See guides</button>
+    </div>
 
     <section class="collapsible">
-      <button class="toggle-button" onclick="toggleSection('completed')">Juegos Completados</button>
-      <div class="collapsible-content" id="completed">
+      <button class="toggle-button" onclick="toggleSection('completed')">Finished Games</button>
+      <div class="collapsible-content hidden" id="completed">
         <div class="games-list" id="completed-list"></div>
       </div>
     </section>
 
     <section class="collapsible">
-      <button class="toggle-button" onclick="toggleSection('incomplete')">Juegos por Completar</button>
+      <button class="toggle-button" onclick="toggleSection('incomplete')">Unfinished Games</button>
       <div class="collapsible-content" id="incomplete">
         <div class="games-list" id="incomplete-list"></div>
       </div>
@@ -69,11 +69,19 @@
             const percentText = document.createElement('span');
             percentText.textContent = game.achievement_percent + '%';
 
+            const achivementDetails = document.createElement('div');
+            achivementDetails.textContent = game.achivements;
+
+            const guides = document.createElement('div');
+            guides.textContent = game.guides;
+
             progressBarContainer.appendChild(progressBar);
             progressBarContainer.appendChild(percentText);
             card.appendChild(img);
             card.appendChild(title);
             card.appendChild(progressBarContainer);
+            card.appendChild(achivementDetails);
+            achivementDetails.appendChild(guides);
 
             if (game.achievement_percent === 100) {
               document.getElementById('completed-list').appendChild(card);

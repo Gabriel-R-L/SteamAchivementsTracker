@@ -61,6 +61,8 @@ h1 {
     position: absolute;
     width: 100%;
     text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
     top: 0;
     line-height: 20px;
     font-size: 12px;
